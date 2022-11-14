@@ -19,15 +19,6 @@ class Ride
     end
   end
 
-  # def boarding_requirements(visitor)
-  #   x = visitor.spending_money
-  #   if boarding_preferences(visitor) == nil || 
-  #     visitor.tall_enough?(min_height) == false || 
-  #     (x - @admission_fee) < 0
-  #     return
-  #   end
-  # end
-
   def update_rider_log(visitor)
     if @rider_log[visitor] == nil
       @rider_log[visitor] = 1
