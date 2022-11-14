@@ -33,6 +33,27 @@ RSpec.describe 'Ride class' do
     end
   end
 
+  describe '#update_rider_log' do
+    it 'will update the rider log attribute' do
+      @visitor1.add_preference(:gentle)
+      @visitor2.add_preference(:gentle)
+      @visitor2.add_preference(:thrilling)
+      @visitor3.add_preference(:thrilling)
+
+      empty_hash = {}
+
+      expect(@ride1.rider_log).to eq(empty_hash)
+
+      @ride1.update_rider_log(@visitor1)
+
+      expected = {
+                    @visitor1 => 1
+                 }
+
+      expect(@ride1.rider_log).to eq(expected)
+    end
+  end
+
   describe '#board_rider()' do
     it 'records who rode the ride, and subtracts admission fee from visitors spending money' do
       @visitor1.add_preference(:gentle)

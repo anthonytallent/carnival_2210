@@ -19,23 +19,34 @@ class Ride
     end
   end
 
+  # def boarding_requirements(visitor)
+  #   x = visitor.spending_money
+  #   if boarding_preferences(visitor) == nil || 
+  #     visitor.tall_enough?(min_height) == false || 
+  #     (x - @admission_fee) < 0
+  #     return
+  #   end
+  # end
+
+  def update_rider_log(visitor)
+    if @rider_log[visitor] == nil
+      @rider_log[visitor] = 1
+    else
+      @rider_log[visitor] += 1
+    end
+  end
+
   def board_rider(visitor) #refactor if time allows
     x = visitor.spending_money
     if boarding_preferences(visitor) == nil || 
       visitor.tall_enough?(min_height) == false || 
       (x - @admission_fee) < 0
       return
-    elsif (x - @admission_fee) < 0
     else
-      if @rider_log[visitor] == nil
-        @rider_log[visitor] = 1
-      else
-        @rider_log[visitor] += 1
-      end
+      update_rider_log(visitor)
       x -= @admission_fee
       visitor.spending_money = x
       @total_revenue += @admission_fee
     end
   end
-
 end
