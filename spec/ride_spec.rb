@@ -21,10 +21,23 @@ RSpec.describe 'Ride class' do
     expect(@ride1.total_revenue).to eq(0)
   end
 
+  describe 'boarding_preferences(visitor)' do
+    it 'will return the specific ride preference if it exists, else it returns nil' do
+      @visitor1.add_preference(:gentle)
+      @visitor2.add_preference(:gentle)
+      @visitor2.add_preference(:thrilling)
+      @visitor3.add_preference(:thrilling)
+
+      expect(@ride3.boarding_preferences(@visitor1)).to eq(nil)
+      expect(@ride1.boarding_preferences(@visitor1)).to eq(:gentle)
+    end
+  end
+
   describe '#board_rider()' do
     it 'records who rode the ride, and subtracts admission fee from visitors spending money' do
       @visitor1.add_preference(:gentle)
       @visitor2.add_preference(:gentle)
+      
 
       @ride1.board_rider(@visitor1)
       @ride1.board_rider(@visitor2)
