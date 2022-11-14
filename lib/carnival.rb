@@ -19,4 +19,16 @@ class Carnival
       ride.rider_log.values.sum
     end
   end
+
+  def most_profitable_ride
+    rides.max_by do |ride|
+      ride.total_revenue
+    end
+  end
+
+  def absolute_total_revenue
+    rides.sum do |ride|
+      ride.total_revenue
+    end
+  end
 end

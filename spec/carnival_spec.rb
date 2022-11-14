@@ -43,6 +43,7 @@ RSpec.describe 'Carnival class' do
 
       @visitor1.add_preference(:gentle)
       @visitor2.add_preference(:gentle)
+      @visitor3.add_preference(:gentle)
       @visitor2.add_preference(:thrilling)
       @visitor3.add_preference(:thrilling)
 
@@ -54,6 +55,67 @@ RSpec.describe 'Carnival class' do
       @ride3.board_rider(@visitor3)
 
       expect(@carnival.most_popular_ride).to eq(@ride1)
+
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.most_popular_ride).to eq(@ride3)
+    end
+  end
+
+  describe '#most_profitable_ride' do
+    it 'will return the most profitable ride based on total_revenue' do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+
+      @visitor1.add_preference(:gentle)
+      @visitor2.add_preference(:gentle)
+      @visitor2.add_preference(:thrilling)
+      @visitor3.add_preference(:thrilling)
+
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor1)
+      @ride3.board_rider(@visitor1)
+      @ride3.board_rider(@visitor2)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.most_profitable_ride).to eq(@ride1)
+
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.most_profitable_ride).to eq(@ride3)
+    end
+  end
+
+  describe '#absolute_total_revenue' do
+    it 'will return the sum of all the rides total_revenue' do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+
+      @visitor1.add_preference(:gentle)
+      @visitor2.add_preference(:gentle)
+      @visitor2.add_preference(:thrilling)
+      @visitor3.add_preference(:thrilling)
+
+      @ride1.board_rider(@visitor1)
+      @ride1.board_rider(@visitor2)
+      @ride1.board_rider(@visitor1)
+      @ride3.board_rider(@visitor1)
+      @ride3.board_rider(@visitor2)
+      @ride3.board_rider(@visitor3)
+
+      expect(@carnival.absolute_total_revenue).to eq(5)
+
+      @ride3.board_rider(@visitor3)
+      @ride3.board_rider(@visitor2)
+
+      expect(@carnival.absolute_total_revenue).to eq(7)
     end
   end
 end
