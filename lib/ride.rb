@@ -20,15 +20,18 @@ class Ride
   end
 
   def board_rider(visitor) #refactor if time allows
-    if boarding_preferences(visitor) == nil || visitor.tall_enough?(min_height) == false
+    x = visitor.spending_money
+    if boarding_preferences(visitor) == nil || 
+      visitor.tall_enough?(min_height) == false || 
+      (x - @admission_fee) < 0
       return
+    elsif (x - @admission_fee) < 0
     else
       if @rider_log[visitor] == nil
         @rider_log[visitor] = 1
       else
         @rider_log[visitor] += 1
       end
-      x = visitor.spending_money
       x -= @admission_fee
       visitor.spending_money = x
       @total_revenue += @admission_fee
